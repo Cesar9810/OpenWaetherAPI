@@ -1,0 +1,1747 @@
+{
+	"info": {
+		"_postman_id": "841e7ddc-3d47-4610-9353-28b74d25da7d",
+		"name": "Open Waether ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28224987"
+	},
+	"item": [
+		{
+			"name": "Latitud - Longitud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"    pm.expect(typeof(main.sea_level)).to.eql('number');\r",
+							"    pm.expect(typeof(main.grnd_level)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.gust)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"    pm.expect(typeof(sys.type)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.id)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=44.34&lon=10.99&appid={{key}}",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "44.34"
+						},
+						{
+							"key": "lon",
+							"value": "10.99"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cambio de idioma",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"    pm.expect(typeof(main.sea_level)).to.eql('number');\r",
+							"    pm.expect(typeof(main.grnd_level)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.gust)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"    pm.expect(typeof(sys.type)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.id)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=44.34&lon=10.99&appid={{key}}&lang=es",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "44.34"
+						},
+						{
+							"key": "lon",
+							"value": "10.99"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						},
+						{
+							"key": "lang",
+							"value": "es"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rain",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"    pm.expect(typeof(main.sea_level)).to.eql('number');\r",
+							"    pm.expect(typeof(main.grnd_level)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.gust)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"    \r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=4.6097100&lon=-74.0817500&appid={{key}}",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "4.6097100"
+						},
+						{
+							"key": "lon",
+							"value": "-74.0817500"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "snow",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"    pm.expect(typeof(main.sea_level)).to.eql('number');\r",
+							"    pm.expect(typeof(main.grnd_level)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.gust)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"snow\", function(){\r",
+							"    const snow = pm.response.json().snow;\r",
+							"   \r",
+							"});\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"    \r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=27.9882228&lon=86.9250873&appid={{key}}",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "27.9882228"
+						},
+						{
+							"key": "lon",
+							"value": "86.9250873"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Version Kelvin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"    pm.expect(typeof(main.sea_level)).to.eql('number');\r",
+							"    pm.expect(typeof(main.grnd_level)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.gust)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"   \r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=4.6097100&lon=-74.0817500&appid={{key}}",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "4.6097100"
+						},
+						{
+							"key": "lon",
+							"value": "-74.0817500"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Version Celsius",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"    pm.expect(typeof(main.sea_level)).to.eql('number');\r",
+							"    pm.expect(typeof(main.grnd_level)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.gust)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"    \r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=4.6097100&lon=-74.0817500&appid={{key}}&units=metric",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "4.6097100"
+						},
+						{
+							"key": "lon",
+							"value": "-74.0817500"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						},
+						{
+							"key": "units",
+							"value": "metric"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Version Fahrenheit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"    \r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"   \r",
+							"} );\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"    \r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=4.6097100&lon=-74.0817500&appid={{key}}&units=imperial",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "4.6097100"
+						},
+						{
+							"key": "lon",
+							"value": "-74.0817500"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						},
+						{
+							"key": "units",
+							"value": "imperial"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather Description",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"  \r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.gust)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"    pm.expect(typeof(sys.type)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.id)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=6.217&lon=-75.567&appid={{key}}",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "6.217"
+						},
+						{
+							"key": "lon",
+							"value": "-75.567"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Codigo del Pais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"  \r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.gust)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"    pm.expect(typeof(sys.type)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.id)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=6.217&lon=-75.567&appid={{key}}",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "6.217"
+						},
+						{
+							"key": "lon",
+							"value": "-75.567"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Name y Country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"    \r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"    \r",
+							"} );\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"    pm.expect(typeof(sys.type)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.id)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=40.7127837&lon=-74.0059413&appid={{key}}",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "40.7127837"
+						},
+						{
+							"key": "lon",
+							"value": "-74.0059413"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Temp_min y Temp_max en decimales",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"  \r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"    \r",
+							"} );\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"    \r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=10.9799669&lon=-74.8013085&appid={{key}}",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "10.9799669"
+						},
+						{
+							"key": "lon",
+							"value": "-74.8013085"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Humidity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"    \r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"    \r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=10.9799669&lon=-74.8013085&appid={{key}}",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "10.9799669"
+						},
+						{
+							"key": "lon",
+							"value": "-74.8013085"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pressure",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"coord\", function(){\r",
+							"    const coord = pm.response.json().coord;\r",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');\r",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"weather\", function(){\r",
+							"    const weather = pm.response.json().weather;\r",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');\r",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');\r",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"base\", function(){\r",
+							"    const base = pm.response.json().base;\r",
+							"    pm.expect(typeof(base)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"main\", function(){\r",
+							"    const main = pm.response.json().main;\r",
+							"    pm.expect(typeof(main.temp)).to.eql('number');\r",
+							"    pm.expect(typeof(main.feels_like)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_min)).to.eql('number');\r",
+							"    pm.expect(typeof(main.temp_max)).to.eql('number');\r",
+							"    pm.expect(typeof(main.pressure)).to.eql('number');\r",
+							"    pm.expect(typeof(main.humidity)).to.eql('number');\r",
+							"   \r",
+							"} );\r",
+							"\r",
+							"pm.test(\"visibility\", function(){\r",
+							"    const visibility = pm.response.json().visibility;\r",
+							"    pm.expect(typeof(visibility)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"wind\", function(){\r",
+							"    const wind = pm.response.json().wind;\r",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');\r",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');\r",
+							"    \r",
+							"} );\r",
+							"\r",
+							"pm.test(\"clouds\", function(){\r",
+							"    const clouds = pm.response.json().clouds;\r",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"dt\", function(){\r",
+							"    const dt = pm.response.json().dt;\r",
+							"    pm.expect(typeof(dt)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"sys\", function(){\r",
+							"    const sys = pm.response.json().sys;\r",
+							"   \r",
+							"    pm.expect(typeof(sys.country)).to.eql('string');\r",
+							"    pm.expect(typeof(sys.sunrise)).to.eql('number');\r",
+							"    pm.expect(typeof(sys.sunset)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"timezone\", function(){\r",
+							"    const timezone = pm.response.json().timezone;\r",
+							"    pm.expect(typeof(timezone)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"id\", function(){\r",
+							"    const id = pm.response.json().id;\r",
+							"    pm.expect(typeof(id)).to.eql('number');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"name\", function(){\r",
+							"    const name = pm.response.json().name;\r",
+							"    pm.expect(typeof(name)).to.eql('string');\r",
+							"} );\r",
+							"\r",
+							"pm.test(\"cod\", function(){\r",
+							"    const cod = pm.response.json().cod;\r",
+							"    pm.expect(typeof(cod)).to.eql('number');\r",
+							"} );"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"weather2\", \"https://api.openweathermap.org/data/2.5/\");\r",
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{weather2}}weather?lat=10.9799669&lon=-74.8013085&appid={{key}}",
+					"host": [
+						"{{weather2}}weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "10.9799669"
+						},
+						{
+							"key": "lon",
+							"value": "-74.8013085"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
