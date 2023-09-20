@@ -1,0 +1,592 @@
+{
+	"info": {
+		"_postman_id": "1329770e-c4f5-4f37-a075-edef9aaf775b",
+		"name": "Open Waether Free",
+		"description": "Esta colección de pruebas está diseñada para automatizar y verificar las solicitudes de las APIs proporcionada por OpenWaether. se pueden encontrar una serie de pruebas que garantizarán la integridad y la precisión de los datos proporcionados.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28224987"
+	},
+	"item": [
+		{
+			"name": "Current",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"pm.test(\"coord\", function(){",
+							"    const coord = pm.response.json().coord;",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');",
+							"} );",
+							"",
+							"pm.test(\"weather\", function(){",
+							"    const weather = pm.response.json().weather;",
+							"    pm.expect(typeof(weather[0].id)).to.eql('number');",
+							"    pm.expect(typeof(weather[0].main)).to.eql('string');",
+							"    pm.expect(typeof(weather[0].description)).to.eql('string');",
+							"    pm.expect(typeof(weather[0].icon)).to.eql('string');",
+							"} );",
+							"",
+							"pm.test(\"base\", function(){",
+							"    const base = pm.response.json().base;",
+							"    pm.expect(typeof(base)).to.eql('string');",
+							"} );",
+							"",
+							"pm.test(\"main properties\", function() {",
+							"    const main = pm.response.json().main;",
+							"    const Propertiesmain = ['temp', 'feels_like', 'temp_min', 'temp_max', 'pressure', 'humidity'];",
+							"    ",
+							"    Propertiesmain.forEach(property => {",
+							"        pm.expect(typeof main[property]).to.eql('number');",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"visibility\", function(){",
+							"    const visibility = pm.response.json().visibility;",
+							"    pm.expect(typeof(visibility)).to.eql('number');",
+							"} );",
+							"",
+							"pm.test(\"wind\", function(){",
+							"    const wind = pm.response.json().wind;",
+							"    pm.expect(typeof(wind.speed)).to.eql('number');",
+							"    pm.expect(typeof(wind.deg)).to.eql('number');",
+							"} );",
+							"",
+							"pm.test(\"clouds\", function(){",
+							"    const clouds = pm.response.json().clouds;",
+							"    pm.expect(typeof(clouds.all)).to.eql('number');",
+							"});",
+							"",
+							"pm.test(\"dt\", function(){",
+							"    const dt = pm.response.json().dt;",
+							"    pm.expect(typeof(dt)).to.eql('number');",
+							"} );",
+							"",
+							"pm.test(\"sys properties\", function() {",
+							"    const sys = pm.response.json().sys;",
+							"    const properties = ['type', 'id', 'country', 'sunrise', 'sunset'];",
+							"    ",
+							"    properties.forEach(property => {",
+							"        const propertyValue = sys[property];",
+							"        pm.expect(['number', 'string']).to.include(typeof propertyValue,);",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"timezone\", function(){",
+							"    const timezone = pm.response.json().timezone;",
+							"    pm.expect(typeof(timezone)).to.eql('number');",
+							"} );",
+							"",
+							"pm.test(\"id\", function(){",
+							"    const id = pm.response.json().id;",
+							"    pm.expect(typeof(id)).to.eql('number');",
+							"} );",
+							"",
+							"pm.test(\"name\", function(){",
+							"    const name = pm.response.json().name;",
+							"    pm.expect(typeof(name)).to.eql('string');",
+							"} );",
+							"",
+							"pm.test(\"cod\", function(){",
+							"    const cod = pm.response.json().cod;",
+							"    pm.expect(typeof(cod)).to.eql('number');",
+							"} );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?lat=6.25184&lon=-75.56359&appid={{key}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "6.25184"
+						},
+						{
+							"key": "lon",
+							"value": "-75.56359"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Air Pollution",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Coord\", function () {",
+							"    const coord = pm.response.json().coord;",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');",
+							"});",
+							"",
+							"pm.test(\"aqi\", function () {",
+							"    const aqi = pm.response.json().list[0].main.aqi;",
+							"    pm.expect(aqi).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"components\", function () {",
+							"    const componentProps = ['co', 'no', 'no2', 'o3', 'so2', 'pm2_5', 'pm10', 'nh3'];",
+							"    const list = pm.response.json().list;",
+							"    for (const item of list) {",
+							"        const components = item.components;",
+							"        for (const prop of componentProps) {",
+							"            pm.expect(components[prop]).to.be.a('number');",
+							"        }",
+							"    }",
+							"});",
+							"",
+							"",
+							"pm.test(\"dt\", function(){",
+							"    const dt = pm.response.json().list[0].dt;",
+							"    pm.expect(typeof(dt)).to.eql('number');",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.openweathermap.org/data/2.5/air_pollution?lat=6.25184&lon=-75.56359&appid={{key}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"air_pollution"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "6.25184"
+						},
+						{
+							"key": "lon",
+							"value": "-75.56359"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Historical Pollution",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"pm.test(\"Coord\", function () {",
+							"    const coord = pm.response.json().coord;",
+							"    pm.expect(typeof(coord.lon)).to.eql('number');",
+							"    pm.expect(typeof(coord.lat)).to.eql('number');",
+							"});",
+							"",
+							"const list = pm.response.json().list;",
+							"for (let i = 0; i < list.length; i++) {",
+							"    const item = list[i];",
+							"    pm.test(`elemento ${i + 1}`, function () {",
+							"        pm.expect(item.main.aqi).to.be.a('number');",
+							"        const componentProps = ['co', 'no', 'no2', 'o3', 'so2', 'pm2_5', 'pm10', 'nh3'];",
+							"        for (let prop of componentProps) {",
+							"            pm.expect(item.components[prop]).to.be.a('number');",
+							"        }",
+							"        pm.expect(item.dt).to.be.a('number');",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.openweathermap.org/data/2.5/air_pollution/history?lat=6.25184&lon=-75.56359&start=1672549200&end=1672563600&appid={{key}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"air_pollution",
+						"history"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "6.25184"
+						},
+						{
+							"key": "lon",
+							"value": "-75.56359"
+						},
+						{
+							"key": "start",
+							"value": "1672549200"
+						},
+						{
+							"key": "end",
+							"value": "1672563600"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5day",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"pm.test(\"cod\", function(){",
+							"    const cod = pm.response.json().cod;",
+							"    pm.expect(typeof(cod)).to.eql('string');",
+							"})",
+							"",
+							"pm.test(\"message\", function(){",
+							"    const message = pm.response.json().message;",
+							"    pm.expect(typeof(message)).to.eql('number');",
+							"})",
+							"",
+							"pm.test(\"cnt\", function(){",
+							"    const cnt = pm.response.json().cnt;",
+							"    pm.expect(typeof(cnt)).to.eql('number');",
+							"})",
+							"",
+							"pm.test(\"List\", function () {",
+							"    const list = pm.response.json().list;",
+							"    pm.expect(list).to.be.an('array');",
+							"",
+							"    for (const listItem of list) {",
+							"        pm.test(`Testing list for ${listItem.dt_txt}`, function () {",
+							"            pm.expect(listItem).to.be.an('object');",
+							"",
+							"            pm.expect(listItem.dt).to.be.a('number');",
+							"            pm.expect(listItem.main).to.be.an('object');",
+							"            pm.expect(listItem.main.temp).to.be.a('number');",
+							"            pm.expect(listItem.main.feels_like).to.be.a('number');",
+							"            pm.expect(listItem.main.temp_min).to.be.a('number');",
+							"            pm.expect(listItem.main.temp_max).to.be.a('number');",
+							"            pm.expect(listItem.main.pressure).to.be.a('number');",
+							"            pm.expect(listItem.main.sea_level).to.be.a('number');",
+							"            pm.expect(listItem.main.grnd_level).to.be.a('number');",
+							"            pm.expect(listItem.main.humidity).to.be.a('number');",
+							"            pm.expect(listItem.main.temp_kf).to.be.a('number');",
+							"            pm.expect(listItem.weather).to.be.an('array');",
+							"            pm.expect(listItem.weather[0].id).to.be.a('number');",
+							"            pm.expect(listItem.weather[0].main).to.be.a('string');",
+							"            pm.expect(listItem.weather[0].icon).to.be.a('string');",
+							"            pm.expect(listItem.weather[0].description).to.be.a('string');",
+							"            pm.expect(listItem.clouds).to.be.an('object');",
+							"            pm.expect(listItem.clouds.all).to.be.a('number');",
+							"            pm.expect(listItem.wind).to.be.an('object');",
+							"            pm.expect(listItem.wind.speed).to.be.a('number');",
+							"            pm.expect(listItem.wind.deg).to.be.a('number');",
+							"            pm.expect(listItem.wind.gust).to.be.a('number');",
+							"            pm.expect(listItem.visibility).to.be.a('number');",
+							"            pm.expect(listItem.pop).to.be.a('number');",
+							"            pm.expect(listItem.sys).to.be.an('object');",
+							"            pm.expect(listItem.sys.pod).to.be.a('string');",
+							"            pm.expect(listItem.dt_txt).to.be.a('string');",
+							"        });",
+							"    }  ",
+							"",
+							"});",
+							"",
+							"pm.test(\"City\", function(){",
+							"    const city = pm.response.json().city;",
+							"    pm.expect(typeof(city.id)).to.eql('number');",
+							"    pm.expect(typeof(city.name)).to.eql('string');",
+							"    pm.expect(typeof(city.coord.lat)).to.eql('number');",
+							"    pm.expect(typeof(city.coord.lon)).to.eql('number');",
+							"    pm.expect(typeof(city.country)).to.eql('string');",
+							"    pm.expect(typeof(city.population)).to.eql('number');",
+							"    pm.expect(typeof(city.timezone)).to.eql('number');",
+							"    pm.expect(typeof(city.sunrise)).to.eql('number');",
+							"    pm.expect(typeof(city.sunset)).to.eql('number');",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid={{key}}",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"forecast"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "44.34"
+						},
+						{
+							"key": "lon",
+							"value": "10.99"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Geocoding",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"key\", \"5e3fc4e0d78dc4db4fe2ad97c69a1e8e\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"name\", function () {",
+							"    const name = pm.response.json()[0].name;",
+							"    pm.expect(typeof(name)).to.eql('string');",
+							"});",
+							"",
+							"pm.test(\"local\", function () {",
+							"    const local = pm.response.json()[0].local_names;",
+							"    pm.expect(typeof(local)).to.eql('object');",
+							"    pm.expect(typeof(local.na)).to.eql('string');",
+							"});",
+							"",
+							"pm.test(\"lat\", function () {",
+							"    const lat = pm.response.json()[0].lat;",
+							"    pm.expect(typeof(lat)).to.eql('number');",
+							"});",
+							"",
+							"pm.test(\"lon\", function () {",
+							"    const lon = pm.response.json()[0].lon;",
+							"    pm.expect(typeof(lon)).to.eql('number');",
+							"});",
+							"",
+							"pm.test(\"country\", function () {",
+							"    const country = pm.response.json()[0].country;",
+							"    pm.expect(typeof(country)).to.eql('string');",
+							"});",
+							"",
+							"pm.test(\"state\", function () {",
+							"    const state = pm.response.json()[0].state;",
+							"    pm.expect(typeof(state)).to.eql('string');",
+							"});",
+							"",
+							"pm.test(\"name2\", function () {",
+							"    const name = pm.response.json()[1].name;",
+							"    pm.expect(typeof(name)).to.eql('string');",
+							"});",
+							"",
+							"pm.test(\"local2\", function () {",
+							"    const local = pm.response.json()[1].local_names;",
+							"    pm.expect(typeof(local)).to.eql('object');",
+							"    pm.expect(typeof(local.fr)).to.eql('string');",
+							"});",
+							"",
+							"pm.test(\"lat2\", function () {",
+							"    const lat = pm.response.json()[1].lat;",
+							"    pm.expect(typeof(lat)).to.eql('number');",
+							"});",
+							"",
+							"pm.test(\"lon2\", function () {",
+							"    const lon = pm.response.json()[1].lon;",
+							"    pm.expect(typeof(lon)).to.eql('number');",
+							"});",
+							"",
+							"pm.test(\"country2\", function () {",
+							"    const country = pm.response.json()[1].country;",
+							"    pm.expect(typeof(country)).to.eql('string');",
+							"});",
+							"",
+							"pm.test(\"state2\", function () {",
+							"    const state = pm.response.json()[1].state;",
+							"    pm.expect(typeof(state)).to.eql('string');",
+							"});",
+							"",
+							"pm.test(\"name3\", function () {",
+							"    const name = pm.response.json()[2].name;",
+							"    pm.expect(typeof(name)).to.eql('string');",
+							"});",
+							"",
+							"pm.test(\"lat3\", function () {",
+							"    const lat = pm.response.json()[2].lat;",
+							"    pm.expect(typeof(lat)).to.eql('number');",
+							"});",
+							"",
+							"pm.test(\"lon3\", function () {",
+							"    const lon = pm.response.json()[2].lon;",
+							"    pm.expect(typeof(lon)).to.eql('number');",
+							"});",
+							"",
+							"pm.test(\"country3\", function () {",
+							"    const country = pm.response.json()[2].country;",
+							"    pm.expect(typeof(country)).to.eql('string');",
+							"});",
+							"",
+							"pm.test(\"state3\", function () {",
+							"    const state = pm.response.json()[2].state;",
+							"    pm.expect(typeof(state)).to.eql('string');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid={{key}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"geo",
+						"1.0",
+						"direct"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "London"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
